@@ -1,0 +1,7 @@
+﻿namespace WebUtil.Lyrics.Contracts.Authentication;
+
+public record LoginRequest(
+string Email,
+string Password);
+
+
