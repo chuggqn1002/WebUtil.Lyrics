@@ -25,6 +25,8 @@ namespace WebUtil.Lyrics.Infrastructure
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<IFileHandleService, FileHandleService>();
+            services.AddScoped<IImageService, ImageService>();
+
             services.AddAuth(configuration);
             //Redis cache
             services.AddSingleton<ICacheManager, CacheManagerService>();

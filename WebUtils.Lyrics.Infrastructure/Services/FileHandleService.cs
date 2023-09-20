@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using System.Reflection;
 using WebUtil.Lyrics.Application.Common.Interfaces.Services;
 
 namespace WebUtil.Lyrics.Infrastructure.Services
@@ -20,7 +21,8 @@ namespace WebUtil.Lyrics.Infrastructure.Services
         {
             _logger = logger;
             _configuration = configuration;
-            _uploadRootPath = configuration.GetSection("AppSettings")["UploadRootPath"];
+            //Base Directory + Upload Folder -- uploadRootPath
+            _uploadRootPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), configuration.GetSection("AppSettings")["UploadRootPath"]);
             _uploadPath = configuration.GetSection("AppSettings")["UploadPath"];
             _uploadTempPath = configuration.GetSection("AppSettings")["UploadTempPath"];
         }
