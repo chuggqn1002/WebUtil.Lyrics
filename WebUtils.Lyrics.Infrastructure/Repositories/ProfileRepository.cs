@@ -89,9 +89,16 @@ namespace WebUtil.Lyrics.Infrastructure.Repositories
             var sql = "SELECT * FROM user_profiles WHERE ProfileId= @Id";
             using (var connection = new MySqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
-                connection.Open();
-                var result = await connection.QueryFirstAsync<User_Profile>(sql, new { Id = id});
-                return result;
+                try
+                {
+                    connection.Open();
+                    var result = await connection.QueryFirstAsync<User_Profile>(sql, new { Id = id });
+                    return result;
+                }
+                catch (MySqlException ex)
+                {
+                    throw ex;
+                }
             }
         }
 

@@ -81,5 +81,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run("http://0.0.0.0:30001");
-//app.Run();
+//app.Run("http://0.0.0.0:30001");
+app.Run();

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace WebUtil.Lyrics.Application.Common.Errors
 {
-    public class NotProfileExisted : Exception, IExceptionService
+    public interface IExceptionService
     {
-        public HttpStatusCode StatusCode => HttpStatusCode.NotFound;
-
-        public string ErrorMessage => "Profile does not exists.";
+        public HttpStatusCode StatusCode { get; }
+        public string ErrorMessage { get; }
     }
 }

@@ -31,7 +31,7 @@ public class LoginQueryHandler :
 
         if (!BC.BCrypt.Verify(query.Password, user.Password))
         {
-            throw new InvalidPassword();
+            throw new Invalid_Account_Password();
         }
 
         var token = _jwtTokenGenerator.GenerateToken(user);
