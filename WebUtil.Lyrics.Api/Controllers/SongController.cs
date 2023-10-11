@@ -45,5 +45,12 @@ namespace WebUtil.Lyrics.Api.Controllers
 
          
         }
+
+        [HttpPost("add")]
+        [Authorize]
+        public async Task<IActionResult> AddSong(AddSongRequest request) { 
+            
+        
+        }
     }
 }

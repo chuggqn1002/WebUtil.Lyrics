@@ -2,7 +2,7 @@
 
 namespace WebUtil.Lyrics.Application.Common.Errors
 {
-    internal class InvalidExeSQL : Exception, IExceptionService
+    public class InvalidExeSQL : Exception, IExceptionService
     {
         public HttpStatusCode StatusCode => HttpStatusCode.NotFound;
 

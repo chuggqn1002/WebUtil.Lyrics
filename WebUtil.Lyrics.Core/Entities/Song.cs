@@ -8,6 +8,7 @@ namespace WebUtil.Lyrics.Domain.Entities
 {
     public class Song
     {
+        public int Sid { get; set; }
         public Guid Suid { get; set; }
         public string SongCode { get; set; }
         public string? Title { get; set; }
