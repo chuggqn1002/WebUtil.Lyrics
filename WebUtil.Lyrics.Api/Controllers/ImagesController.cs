@@ -28,6 +28,7 @@ namespace WebUtil.Lyrics.Api.Controllers
 
                 // Determine the content type based on the file extension (you may need to adjust this)
                 string contentType = "image/jpeg"; // Adjust based on your image types
+                
 
                 // Return the image as a FileResult
                 return File(imageStream, contentType);
@@ -37,6 +38,11 @@ namespace WebUtil.Lyrics.Api.Controllers
                 // Handle exceptions (e.g., log the error)
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        private void testgitcommand()
+        {
+
         }
     }
 
