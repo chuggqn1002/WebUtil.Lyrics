@@ -19,13 +19,13 @@ namespace WebUtil.Lyrics.Application.Songs.Queries.GetASongById
         {
 
 
-            var song = _songRepository.GetByGuidAsync(request.Suid);
+            var song = await _songRepository.GetByGuidAsync(request.Suid);
             if (song == null)
             {
                 throw new ArgumentNullException("Song is null");
             }
 
-            return new GetASongByIdResult(song.Result);
+            return new GetASongByIdResult(song);
         }
     }
 }

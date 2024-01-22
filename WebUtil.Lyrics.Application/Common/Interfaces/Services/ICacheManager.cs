@@ -9,5 +9,7 @@ namespace WebUtil.Lyrics.Application.Common.Interfaces.Services
     public interface ICacheManager
     {
         Task<T> GetOrSetAsync<T>(string cacheKey, Func<Task<T>> getItemCallback, TimeSpan TimeDuration);
-    }
+        Task DeleteKey(string key);
+
+	}
 }

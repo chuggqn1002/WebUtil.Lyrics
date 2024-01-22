@@ -25,11 +25,13 @@ namespace WebUtil.Lyrics.Domain.Entities
         public string? YtbCode { get; set; }
         public string? VideoLink { get; set; }
         public string? Description { get; set; }
-        public DateTime Released { get; set; }
+		public DateTime Released { get; set; }
         public int Status { get; set; }
         public IEnumerable<Song_Line> Song_Lines { get; set; }
 
         public IEnumerable<Song_Tag> Song_Tags { get; set;}
+		public IEnumerable<Song_Category> Song_Categories { get; set; }
 
-    }
+
+	}
 }

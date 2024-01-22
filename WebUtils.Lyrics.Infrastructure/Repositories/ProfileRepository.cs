@@ -23,39 +23,58 @@ namespace WebUtil.Lyrics.Infrastructure.Repositories
         public async Task<int> AddAsync(User_Profile entity)
         {
 
-            var sql = "Insert into user_profiles (Uuid, FirstName,LastName,Middle,Title,Address,Ward,District,City,Country,ZipCode,Birthdate,Avatar,Gender,TelNum,Description,Status,Created,Updated) " +
+            var sql = "Insert into user_profiles (Uuid, FirstName,LastName,Middle,Title,Address,Ward,District,City,Country,ZipCode,Birthday,Avatar,Gender,TelNum,Description,Status,Created,Updated) " +
                 "VALUES (@Uuid, @FirstName,@LastName,@Middle,@Title,@Address,@Ward,@District,@City,@Country,@ZipCode,@Birthdate,@Avatar,@Gender,@TelNum,@Description,@Status,@Created,@Updated)";
             using (var connection = new MySqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 try { 
                     connection.Open();
-                    MySqlCommand command;
+                   // MySqlCommand command;
                     long result = -1;
-                    using (command = new MySqlCommand(sql, connection))
-                    {
-                        command.Parameters.AddWithValue("@Uuid" , entity.Uuid);
-                        command.Parameters.AddWithValue("@FirstName" , entity.FirstName);
-                        command.Parameters.AddWithValue("@LastName" , entity.LastName);
-                        command.Parameters.AddWithValue("@Middle" , entity.Middle);
-                        command.Parameters.AddWithValue("@Title" , entity.Title);
-                        command.Parameters.AddWithValue("@Address" , entity.Address);
-                        command.Parameters.AddWithValue("@Ward" , entity.Ward);
-                        command.Parameters.AddWithValue("@District" , entity.District);
-                        command.Parameters.AddWithValue("@City" , entity.City);
-                        command.Parameters.AddWithValue("@Country" , entity.Country);
-                        command.Parameters.AddWithValue("@ZipCode" , entity.ZipCode);
-                        command.Parameters.AddWithValue("@Birthdate", entity.Birthdate);
-                        command.Parameters.AddWithValue("@Avatar" , entity.Avatar);
-                        command.Parameters.AddWithValue("@Gender" , entity.Gender);
-                        command.Parameters.AddWithValue("@TelNum" , entity.TelNum);
-                        command.Parameters.AddWithValue("@Description" , entity.Description);
-                        command.Parameters.AddWithValue("@Status" , entity.Status);
-                        command.Parameters.AddWithValue("@Created" , entity.Created);
-                        command.Parameters.AddWithValue("@Updated" , entity.Updated);
+                    result = await connection.ExecuteScalarAsync<long>(sql, new {
+                        entity.Uuid,
+                        entity.FirstName, entity.LastName,
+                        entity.Middle,
+                        entity.Title,
+                        entity.Address,
+                        entity.Ward,
+                        entity.District,
+                        entity.City,
+                        entity.Country,
+                        entity.ZipCode,
+                        entity.Birthdate,
+                        entity.Avatar,
+                        entity.Gender,
+                        entity.TelNum,
+                        entity.Description,
+                        entity.Status,
+                        entity.Created, entity.Updated
+                    });
+                    //using (command = new MySqlCommand(sql, connection))
+                    //{
+                    //    command.Parameters.AddWithValue("@Uuid" , entity.Uuid);
+                    //    command.Parameters.AddWithValue("@FirstName" , entity.FirstName);
+                    //    command.Parameters.AddWithValue("@LastName" , entity.LastName);
+                    //    command.Parameters.AddWithValue("@Middle" , entity.Middle);
+                    //    command.Parameters.AddWithValue("@Title" , entity.Title);
+                    //    command.Parameters.AddWithValue("@Address" , entity.Address);
+                    //    command.Parameters.AddWithValue("@Ward" , entity.Ward);
+                    //    command.Parameters.AddWithValue("@District" , entity.District);
+                    //    command.Parameters.AddWithValue("@City" , entity.City);
+                    //    command.Parameters.AddWithValue("@Country" , entity.Country);
+                    //    command.Parameters.AddWithValue("@ZipCode" , entity.ZipCode);
+                    //    command.Parameters.AddWithValue("@Birthdate", entity.Birthdate);
+                    //    command.Parameters.AddWithValue("@Avatar" , entity.Avatar);
+                    //    command.Parameters.AddWithValue("@Gender" , entity.Gender);
+                    //    command.Parameters.AddWithValue("@TelNum" , entity.TelNum);
+                    //    command.Parameters.AddWithValue("@Description" , entity.Description);
+                    //    command.Parameters.AddWithValue("@Status" , entity.Status);
+                    //    command.Parameters.AddWithValue("@Created" , entity.Created);
+                    //    command.Parameters.AddWithValue("@Updated" , entity.Updated);
 
-                        await command.ExecuteNonQueryAsync();
-                        result = command.LastInsertedId;
-                    }
+                    //    await command.ExecuteNonQueryAsync();
+                    //    result = command.LastInsertedId;
+                    //}
                     return unchecked((int)result);
                 }
                 catch (MySqlException ex)
@@ -92,6 +111,7 @@ namespace WebUtil.Lyrics.Infrastructure.Repositories
 
         public async Task<User_Profile> GetByGuidAsync(Guid guid)
         {
+            
             var sql = "SELECT * FROM user_profiles WHERE Uuid= @Guid";
             using (var connection = new MySqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {

@@ -77,7 +77,7 @@ namespace WebUtil.Lyrics.Api.Controllers
             IEnumerable<Claim> claims = _jwtService.getTokenClaim();
             string Email = claims.First(c => c.Type == ClaimTypes.Email).Value;
             string Username = claims.First(c => c.Type == ClaimTypes.Name).Value;
-
+            //Console.WriteLine(Uuid);
             var requestData = new GetProfileQuery(Uuid, Email, Username);
             var getProfileResult = await _mediator.Send(requestData);
 

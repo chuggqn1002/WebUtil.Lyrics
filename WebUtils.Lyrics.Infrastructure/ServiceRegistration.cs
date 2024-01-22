@@ -26,8 +26,17 @@ namespace WebUtil.Lyrics.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<IFileHandleService, FileHandleService>();
             services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<ISongTagRepository, SongTagRepository>();
+			services.AddScoped<ISongCategoryRepository, SongCategoryRepository>();
+			services.AddScoped<ICategoryRepository, CategoryRepository>();
+			services.AddScoped<IAlbumRepository, AlbumRepository>();
+			services.AddScoped<IAuthorRepository, AuthorRepository>();
+			services.AddScoped<ISingerRepository, SingerRepository>();
+			services.AddScoped<ISongLineRepository, SongLineRepository>();
 
-            services.AddAuth(configuration);
+
+
+			services.AddAuth(configuration);
             //Redis cache
             services.AddSingleton<ICacheManager, CacheManagerService>();
             services.AddSingleton<IConnectionMultiplexer>(sp =>
@@ -53,18 +62,25 @@ namespace WebUtil.Lyrics.Infrastructure
             services.AddSingleton(Options.Create(JwtSettings));
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
-            services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = JwtSettings.Issuer,
-                    ValidAudience = JwtSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(JwtSettings.Secret))
-                });
+            //services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = JwtSettings.Issuer,
+            //        ValidAudience = JwtSettings.Audience,
+            //        IssuerSigningKey = new SymmetricSecurityKey(
+            //            Encoding.UTF8.GetBytes(JwtSettings.Secret))
+            //    });
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                    {
+                        options.Authority = configuration["IdentityServer:Authority"];
+                        options.RequireHttpsMetadata = false; // Chỉ sử dụng HTTPS trong môi trường thực tế
+                        options.Audience = configuration["IdentityServer:ApiName"];
+                    });
             return services;
         }
     }

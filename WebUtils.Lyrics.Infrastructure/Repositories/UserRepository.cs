@@ -53,7 +53,7 @@ namespace WebUtil.Lyrics.Infrastructure.Repositories
                     command.Parameters.AddWithValue("@Username", entity.Username.IsNullOrEmpty() ? "" : entity.Username.ToString());
                     command.Parameters.AddWithValue("@Email", entity.Email.IsNullOrEmpty() ? "" : entity.Email.ToString());
                     command.Parameters.AddWithValue("@Password", BC.HashPassword(entity.Password.ToString()));
-                    command.Parameters.AddWithValue("@Role", entity.Role.ToString());
+                    command.Parameters.AddWithValue("@Role", (int)entity.Role);
                     command.Parameters.AddWithValue("@Status", entity.Status.ToString());
                     command.Parameters.AddWithValue("@Created", entity.Created);
                     command.Parameters.AddWithValue("@Updated", entity.Updated);

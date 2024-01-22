@@ -37,5 +37,18 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
+  },
+  "IdentityServer": {
+    "Authority": "https://localhost:44310",
+    "ApiName": "WebUtil.Lyrics",
+    "ApiSecret": "your-api-secret",
+    "ApiVersion": "v1",
+    "ApiBaseUrl": "https://localhost:7262",
+    "OidcSwaggerUIClientId": "MyClientId_api_swaggerui",
+    "OidcApiName": "MyClientId_api",
+    "AdministrationRole": "Admin",
+    "RequireHttpsMetadata": false,
+    "CorsAllowAnyOrigin": true,
+    "CorsAllowOrigins": []
   }
 }

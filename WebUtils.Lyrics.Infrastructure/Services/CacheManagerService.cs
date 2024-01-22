@@ -33,5 +33,9 @@ namespace WebUtil.Lyrics.Infrastructure.Services
 
             return item;
         }
+        public async Task DeleteKey(string key)
+        {
+            await _connectionMultiplexer.GetDatabase().KeyDeleteAsync(key);
+        }
     }
 }

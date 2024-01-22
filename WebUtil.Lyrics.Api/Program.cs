@@ -18,7 +18,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
@@ -69,9 +68,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint($"{builder.Configuration.GetSection("IdentityServer")["ApiBaseUrl"]}/swagger/v1/swagger.json", builder.Configuration.GetSection("IdentityServer")["ApiName"]);
+
+        c.OAuthClientId(builder.Configuration.GetSection("IdentityServer")["OidcSwaggerUIClientId"]);
+        c.OAuthAppName(builder.Configuration.GetSection("IdentityServer")["ApiName"]);
+        c.OAuthUsePkce();
+    });
 }
 
+app.UseAuthentication();
 
 app.UseExceptionHandler("/error");
 
@@ -81,5 +88,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run("http://0.0.0.0:30001");
-//app.Run();
+//app.Run("http://0.0.0.0:30001");
+app.Run();
